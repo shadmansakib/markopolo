@@ -72,29 +72,26 @@ export default function Posts() {
 
             <h1 className='page-heading'>All Posts</h1>
 
-            {/* filter area */}
-            <div className='filter-area'>
-                filter
-                <input
-                    placeholder='Search'
-                    type="text"
-                    value={searchStr}
-                    onChange={e => setSearchStr(e.target.value)}
-                />
+            <div className='filter-grid-container'>
+                <div className='grid-item'>
+                    {/* <p>Search Posts</p> */}
+                    <input
+                        placeholder='Search/Filter Posts'
+                        type="text"
+                        value={searchStr}
+                        onChange={e => setSearchStr(e.target.value)}
+                    />
+                </div>
 
-                <span className='' style={{ backgroundColor: '', width: 250 }}>Sort by Title</span>
-                <select name="sort" id="">
-                    <option value="asc">Ascending</option>
-                    <option value="dsc">Descending</option>
-                </select>
+                <div className='grid-item'>
+                    <p>Sort by Title</p>
 
-                {/* todo: add filter */}
-
-                <button
-                    onClick={e => openModal()}
-                >Filter</button>
+                    <select name="sort" id="">
+                        <option value="asc">Ascending</option>
+                        <option value="dsc">Descending</option>
+                    </select>
+                </div>
             </div>
-            {/* end: filter area */}
 
             {postList?.map((post: any) => (
                 <PostCard
