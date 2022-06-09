@@ -1,0 +1,74 @@
+@import '../../App.scss';
+
+div.login-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 60px);
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    padding-top: 50px;
+    margin-top: 2.5rem;
+
+    .login-card {
+        // todo: fix width to full for small screens
+        // this is for large screens
+        width: 40%;
+        padding: 1.25rem;
+        // border: 1px solid #d0cece;
+        border: 1px solid map-get( $colors, secondary-light);
+        border-radius: 0.5rem;
+        background-color: white;
+
+        h1 {
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 1px solid gray;
+            padding-bottom: 15px;
+            font-size: 1.25rem;
+        }
+    }
+}
+
+.btn-primary {
+    background-color: map-get( $colors, primary);
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: 1px solid map-get($colors, primary);
+    border-radius: 10px;
+    color: white;
+    
+    &:hover {
+        background-color: map-get($colors, primary-light);
+        // color: map-get($colors, secondary-dark);
+        color: black;
+    }
+}
+
+
+
+// form input group
+.form-input {
+    margin-bottom: 10px;
+
+    label {
+        font-weight: 500;
+        line-height: 1.8rem;
+    }
+
+    input {
+        padding: 1.2rem;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        width: 100%;
+        border: 1px solid map-get( $colors, primary-light);
+        
+        &:focus {
+            outline: none;
+            border: 1px solid map-get( $colors, primary);
+        }
+    }
+}
+// end: form input group
+

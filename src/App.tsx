@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PrivateOutlet from './components/PrivateOutlet/PrivateOutlet';
+import Posts from './routes/Posts/Posts';
+import { useSelector } from 'react-redux';
+import { AppState } from './store/configStore';
+import Login from './routes/Login/Login';
+import Toolbar from './components/Toolbar/Toolbar';
 
 function App() {
+  const { user } = useSelector((state: AppState) => state.auth)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Toolbar />
+      <main style={{ backgroundColor: '', marginTop: 50 }}>
+        <Routes>
+          {!user && <Route path='/login' element={<Login />} />}
+          <Route path='/' element={user ? <Posts /> : <Login />} />
+          <Route path='*' element={<div>404 not found</div>} />
+
+          <Route element={<PrivateOutlet userID={user} />} >
+            <Route path='/posts' element={<Posts />} />
+            <Route path='*' element={<div>404 not found</div>} />
+          </Route>
+        </Routes>
+      </main>
+    </BrowserRouter>
+  )
 }
 
 export default App;

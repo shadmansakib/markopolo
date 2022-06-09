@@ -1,0 +1,101 @@
+@import '../../../../App.scss';
+
+.post-card {
+    background-color: #e5e7eb;
+}
+
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 15px;
+    min-width: 100%;
+}
+
+.card-content-area {
+    cursor: pointer;
+    background-color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 5px 11px 17px -3px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        background-color: #fff9f9;
+    }
+}
+
+.card-content {
+    padding: 1rem;
+    width: 100%;
+
+    .heading {
+        font-weight: 700;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+
+    .card-text {
+        color: #374151;
+    }
+}
+
+
+.card-button-area {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    button {
+        margin-top: 0.75rem;
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+
+        font-weight: 700;
+        color: white;
+
+        border: unset;
+        border-radius: 0.5rem;
+    }
+
+    .edit-button {
+        background-color: map-get($colors, primary);
+
+        &:hover {
+            background-color: map-get($colors, primary-light);
+        }
+    }
+
+    .delete-button {
+        background-color: map-get($colors, danger);
+
+        &:hover {
+            background-color: map-get($colors, danger-light);
+        }
+    }
+}
+
+
+
+@media (min-width: 768px) {
+    .card {
+        max-width: 42rem;
+    }
+
+    .card-content-area {
+        display: flex;
+    }
+
+    .card-text {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+}

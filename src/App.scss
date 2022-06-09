@@ -1,0 +1,11 @@
+$colors: (
+  primary: #009dff,
+  primary-dark: darken(#009dff, 30%),
+  primary-light: lighten(#009dff, 15%),
+  secondary: #c6c6c6,
+  secondary-dark: darken(#c6c6c6, 30%),
+  secondary-light: lighten(#c6c6c6, 15%),
+  danger: #e35757,
+  danger-dark: darken(#e35757, 30%),
+  danger-light: lighten(#e35757, 10%),
+);

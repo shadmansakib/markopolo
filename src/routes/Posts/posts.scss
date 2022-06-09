@@ -1,0 +1,32 @@
+@import '../../App.scss';
+
+.posts {
+    padding: 10px;
+}
+
+// filter area
+.filter-area {
+    background-color: skyblue;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    input,
+    select {
+        padding: 1.2rem;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        width: 100%;
+        border: 1px solid map-get($colors, primary-light);
+        margin: 0px 5px;
+
+        &:focus {
+            outline: none;
+            border: 1px solid map-get($colors, primary);
+        }
+    }
+}
+
+// end:  filter area
