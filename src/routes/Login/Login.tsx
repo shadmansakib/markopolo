@@ -12,8 +12,8 @@ export default function Login() {
     const { user } = useSelector((state: AppState) => state.auth)
 
     const initialValues = {
-        email: '',
-        password: '',
+        email: 'demo@email.com',
+        password: 'demopassword',
     }
     const validationSchema = Yup.object({
         email: Yup.string()
