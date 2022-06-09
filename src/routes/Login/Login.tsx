@@ -29,7 +29,7 @@ export default function Login() {
         dispatch(setAuthUser(values.email))
     }
 
-    if (user) return <Navigate to="/posts" />
+    if (user) return <Navigate to="/" />
 
     return (
         <div className="login-container">

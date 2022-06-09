@@ -26,7 +26,7 @@ const dscSort = (a: any, b: any) => {
 
 export default function Posts() {
     const dispatch = useDispatch()
-    const { posts } = useSelector((state: AppState) => state.posts);
+    const { posts } = useSelector((state: AppState) => state.posts)
 
     const [loading, setLoading] = useState(true)
     const [searchStr, setSearchStr] = useState('')

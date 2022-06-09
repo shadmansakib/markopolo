@@ -8,6 +8,7 @@ import { AppState } from './store/configStore';
 import Login from './routes/Login/Login';
 import Toolbar from './components/Toolbar/Toolbar';
 import Details from './routes/Details/Details';
+import Edit from './routes/Edit/Edit';
 
 function App() {
   const { user } = useSelector((state: AppState) => state.auth)
@@ -24,6 +25,7 @@ function App() {
           <Route element={<PrivateOutlet userID={user} />} >
             <Route path='/posts' element={<Posts />} />
             <Route path='/posts/:postID' element={<Details />} />
+            <Route path='/posts/:postID/edit' element={<Edit />} />
             <Route path='*' element={<div>404 not found</div>} />
           </Route>
         </Routes>

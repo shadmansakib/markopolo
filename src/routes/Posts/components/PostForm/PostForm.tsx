@@ -2,18 +2,22 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import './post-form.scss'
-import { useDispatch } from 'react-redux'
-import { addPost } from '../../../../store/actions/postAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { addPost, setPosts } from '../../../../store/actions/postAction'
 import { api } from '../../../../axios'
+import { Post } from '../../../../types'
+import { AppState } from '../../../../store/configStore'
 
 type Props = {
+    post?: Post
     onSuccess?: () => void
     onError?: () => void
 }
-export const PostForm: React.FC<Props> = ({ onSuccess = undefined, onError = undefined }) => {
+export const PostForm: React.FC<Props> = ({ post = undefined, onSuccess = undefined, onError = undefined }) => {
     const dispatch = useDispatch()
+    const { posts } = useSelector((state: AppState) => state.posts)
 
-    const initialValues = {
+    const initialValues = post || {
         title: '',
         body: '',
     }
@@ -27,11 +31,47 @@ export const PostForm: React.FC<Props> = ({ onSuccess = undefined, onError = und
     })
 
     const onSubmit = async (values: any) => {
-        console.log({
-            title: values.title,
-            body: values.body,
-        });
+        // update operation
+        if (post) {
+            try {
+                const resp = await api.put(`/posts/${post.id}`, {
+                    title: values.title,
+                    body: values.body,
+                })
 
+                if (resp.status !== 200) {
+                    console.error('HTTP Status Error: ', resp.status)
+                    if (onError) onError()
+                    return
+                }
+                const data = resp.data
+
+                // update state
+                const postIndex = posts.findIndex((item: Post) => item.id === post.id);
+
+                const updatedPost: Post = {
+                    ...post,
+                    title: values.title,
+                    body: values.body,
+                }
+
+                const updatedPosts: Post[] = [
+                    ...posts.slice(0, postIndex),
+                    updatedPost,
+                    ...posts.slice(postIndex + 1),
+                ];
+                dispatch(setPosts(updatedPosts))
+
+                if (onSuccess) onSuccess()
+
+            } catch (error) {
+                console.error('Post update error: ', error)
+                if (onError) onError()
+            }
+            return
+        }
+
+        // create operation
         try {
             const resp = await api.post('/posts', {
                 title: values.title,
@@ -43,15 +83,12 @@ export const PostForm: React.FC<Props> = ({ onSuccess = undefined, onError = und
                 if (onError) onError()
                 return
             }
-            // todo: hide modal, add new post (resp.data) to list
             const data = resp.data
             dispatch(addPost(data))
-            // console.log({data});
-            
             if (onSuccess) onSuccess()
         } catch (error) {
             console.error('Post Error: ', error)
-
+            if (onError) onError()
         }
 
 

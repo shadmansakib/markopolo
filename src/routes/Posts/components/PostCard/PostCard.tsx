@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { api } from '../../../../axios'
 import { setPosts } from '../../../../store/actions/postAction'
 import { AppState } from '../../../../store/configStore'
@@ -13,6 +13,8 @@ type Props = {
     body: string
 }
 export const PostCard: React.FC<Props> = ({ id, title, body }) => {
+    const navigate = useNavigate()
+
     const [isDeleting, setIsDeleting] = useState(false)
     const dispatch = useDispatch()
     const { posts } = useSelector((state: AppState) => state.posts)
@@ -49,7 +51,7 @@ export const PostCard: React.FC<Props> = ({ id, title, body }) => {
                         <div className="card-button-area">
                             <button
                                 className='edit-button'
-                                onClick={e => { }}>
+                                onClick={e => { navigate(`/posts/${id}/edit`) }}>
                                 Edit
                             </button>
 
