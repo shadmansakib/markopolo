@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { api } from '../../../../axios'
 import { setPosts } from '../../../../store/actions/postAction'
 import { AppState } from '../../../../store/configStore'
@@ -41,7 +42,7 @@ export const PostCard: React.FC<Props> = ({ id, title, body }) => {
 
                     <div className='card-content'>
                         <div>
-                            <p className="heading">{title}</p>
+                            <Link to={`/posts/${id}`} className="heading">{title}</Link>
                             <p className="card-text">{body}</p>
                         </div>
 

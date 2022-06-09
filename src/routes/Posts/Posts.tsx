@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Loading from '../../components/Loading/Loading'
 import { Modal } from '../../components/Modal/Modal'
 import { fetchPosts } from '../../store/actions/postAction'
 import { AppState } from '../../store/configStore'
@@ -27,7 +28,7 @@ export default function Posts() {
     const dispatch = useDispatch()
     const { posts } = useSelector((state: AppState) => state.posts);
 
-    const [selectedMenu, setSelectedMenu] = useState<string | number | undefined>()
+    const [loading, setLoading] = useState(true)
     const [searchStr, setSearchStr] = useState('')
     const [sort, setSort] = useState('def')
     const [postList, setPostList] = useState<any>(undefined)
@@ -35,7 +36,10 @@ export default function Posts() {
 
     useEffect(() => {
         if (searchStr === '' && posts?.length > 0) setPostList(posts)
-        if (posts.length > 0) return
+        if (posts.length > 0) {
+            setLoading(false)
+            return
+        }
         // @ts-ignore
         dispatch(fetchPosts())
     }, [posts, searchStr])
@@ -79,6 +83,8 @@ export default function Posts() {
     function closeModal() {
         setIsOpen(false);
     }
+
+    if(loading) return (<Loading />)
 
     return (
         <div className='posts'>
