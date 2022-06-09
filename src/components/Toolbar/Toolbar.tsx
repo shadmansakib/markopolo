@@ -23,12 +23,12 @@ export default function Toolbar() {
 
                 <div className="menu">
                     <ul>
-                        <li><NavLink to="/">Home</NavLink></li>
-                        {!user && (
-                            <li><NavLink to="/login">Login</NavLink></li>
-                        )}
+                        {!user && <li><NavLink to="/login">Login</NavLink></li>}
                         {user && (
-                            <li><NavLink to="#" onClick={e => { dispatch(unsetAuthUser()) }}>Logout</NavLink></li>
+                            <>
+                                <li><NavLink to="/">Posts</NavLink></li>
+                                <li><NavLink to="#" onClick={e => { dispatch(unsetAuthUser()) }}>Logout</NavLink></li>
+                            </>
                         )}
                     </ul>
                 </div>
