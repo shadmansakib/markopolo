@@ -1,11 +1,58 @@
 $colors: (
   primary: #009dff,
   primary-dark: darken(#009dff, 30%),
-  primary-light: lighten(#009dff, 15%),
+  primary-light: lighten(#009dff, 30%),
   secondary: #c6c6c6,
   secondary-dark: darken(#c6c6c6, 30%),
   secondary-light: lighten(#c6c6c6, 15%),
-  danger: #e35757,
-  danger-dark: darken(#e35757, 30%),
-  danger-light: lighten(#e35757, 10%),
 );
+
+
+main {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.page-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.form-input {
+  margin-bottom: 10px;
+
+  label {
+      font-weight: 500;
+      line-height: 1.8rem;
+  }
+
+  input {
+      padding: 1.2rem;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid map-get( $colors, primary-light);
+      
+      &:focus {
+          outline: none;
+          border: 1px solid map-get( $colors, primary);
+      }
+  }
+
+  textarea {
+      display: block;
+      width: 100%;
+      // background-color: pink;
+      padding: 1.2rem;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+      resize: none;
+      border: 1px solid map-get( $colors, primary-light);
+      
+      &:focus {
+          outline: none;
+          border: 1px solid map-get( $colors, primary);
+      }
+  }
+}

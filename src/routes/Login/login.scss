@@ -47,28 +47,3 @@ div.login-container {
 }
 
 
-
-// form input group
-.form-input {
-    margin-bottom: 10px;
-
-    label {
-        font-weight: 500;
-        line-height: 1.8rem;
-    }
-
-    input {
-        padding: 1.2rem;
-        border-radius: 0.25rem;
-        box-sizing: border-box;
-        width: 100%;
-        border: 1px solid map-get( $colors, primary-light);
-        
-        &:focus {
-            outline: none;
-            border: 1px solid map-get( $colors, primary);
-        }
-    }
-}
-// end: form input group
-

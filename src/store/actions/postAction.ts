@@ -1,5 +1,6 @@
 import { api } from "../../axios";
-import { SET_POSTS } from "./actionTypes";
+import { Post } from "../../types";
+import { ADD_POST, SET_POSTS } from "./actionTypes";
 
 export const fetchPosts = () => (dispatch: any) => {
     api.get('/posts')
@@ -19,4 +20,6 @@ export const fetchPosts = () => (dispatch: any) => {
 }
 
 
-export const setPosts = (posts: any[]) => ({ type: SET_POSTS, payload: posts });
+export const setPosts = (posts: Post[]) => ({ type: SET_POSTS, payload: posts })
+
+export const addPost = (post: Post) => ({ type: ADD_POST, payload: post })

@@ -1,5 +1,5 @@
 import { Post } from "../../types";
-import { SET_POSTS } from "../actions/actionTypes";
+import { ADD_POST, SET_POSTS } from "../actions/actionTypes";
 
 type PostState = {
     posts: Post[]
@@ -15,6 +15,13 @@ export default function postReducer(state = initialState, action: any) {
             return {
                 ...state,
                 posts: action.payload,
+            }
+        case ADD_POST:
+            console.log('adding post...');
+            
+            return {
+                ...state,
+                posts: [action.payload, ...state.posts],
             }
         default:
             return state;
