@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../components/Loading/Loading'
 import { Modal } from '../../components/Modal/Modal'
-import { fetchPosts } from '../../store/actions/postAction'
+import { fetchPosts, searchPosts, setPosts } from '../../store/actions/postAction'
 import { AppState } from '../../store/configStore'
 import { PostCard } from './components/PostCard/PostCard'
 import { PostForm } from './components/PostForm/PostForm'
@@ -31,47 +31,34 @@ export default function Posts() {
     const [loading, setLoading] = useState(true)
     const [searchStr, setSearchStr] = useState('')
     const [sort, setSort] = useState('def')
-    const [postList, setPostList] = useState<any>(undefined)
-
 
     useEffect(() => {
-        if (searchStr === '' && posts?.length > 0) setPostList(posts)
-        if (posts.length > 0) {
-            setLoading(false)
-            return
-        }
         // @ts-ignore
-        dispatch(fetchPosts())
-    }, [posts, searchStr])
+        if (searchStr.length > 0) dispatch(searchPosts(searchStr))
+        // @ts-ignore
+        else dispatch(fetchPosts())
+    }, [searchStr])
+
+    useEffect(() => {
+        if (posts.length > 0) setLoading(false)
+    }, [posts])
 
     const sortPosts = async (sort: string) => {
         if (sort === 'def') {
             console.log('sorting def...');
-            setPostList([...await posts.sort(defSort)])
+            dispatch(setPosts([...await posts.sort(defSort)]))
         }
         if (sort === 'asc') {
-            setPostList([...await posts.sort(ascSort)])
+            dispatch(setPosts([...await posts.sort(ascSort)]))
+
         }
         if (sort === 'dsc') {
-            setPostList([...await posts.sort(dscSort)])
+            dispatch(setPosts([...await posts.sort(dscSort)]))
         }
     }
     useEffect(() => {
         sortPosts(sort)
     }, [sort])
-
-    useEffect(() => {
-        // if (searchStr === '') {
-        //     setPostList(posts)
-        //     return
-        // }
-        const filteredPosts = posts.filter((post: any) => (
-            post.title.toLowerCase().includes(searchStr.toLowerCase())
-        ))
-        setPostList(filteredPosts);
-    }, [searchStr])
-
-
 
     const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -84,7 +71,7 @@ export default function Posts() {
         setIsOpen(false);
     }
 
-    if(loading) return (<Loading />)
+    if (loading) return (<Loading />)
 
     return (
         <div className='posts'>
@@ -136,13 +123,14 @@ export default function Posts() {
                 </div>
             </div>
 
-            {searchStr && postList.length === 0 && (
+            {searchStr && posts.length === 0 && (
                 <div className='no-result'>
                     No result found!
                 </div>
             )}
 
-            {postList?.map((post: any) => (
+            {/* {postList?.map((post: any) => ( */}
+            {posts?.map((post: any) => (
                 <PostCard
                     key={post.id}
                     id={post.id}
