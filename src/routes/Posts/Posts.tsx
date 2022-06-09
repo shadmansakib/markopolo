@@ -36,7 +36,7 @@ export default function Posts() {
         // @ts-ignore
         if (searchStr.length > 0) dispatch(searchPosts(searchStr))
         // @ts-ignore
-        else dispatch(fetchPosts())
+        else if (posts.length === 0) dispatch(fetchPosts())
     }, [searchStr])
 
     useEffect(() => {
