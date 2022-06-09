@@ -7,6 +7,21 @@ import { PostCard } from './components/PostCard/PostCard'
 import { PostForm } from './components/PostForm/PostForm'
 import './posts.scss'
 
+const defSort = (a: any, b: any) => {
+    if (a.id > b.id) return 1;
+    if (a.id < b.id) return -1;
+    return 0;
+}
+const ascSort = (a: any, b: any) => {
+    if (a.title < b.title) return -1;
+    if (a.title > b.title) return 1;
+    return 0;
+}
+const dscSort = (a: any, b: any) => {
+    if (a.title > b.title) return -1;
+    if (a.title < b.title) return 1;
+    return 0;
+}
 
 export default function Posts() {
     const dispatch = useDispatch()
@@ -14,6 +29,7 @@ export default function Posts() {
 
     const [selectedMenu, setSelectedMenu] = useState<string | number | undefined>()
     const [searchStr, setSearchStr] = useState('')
+    const [sort, setSort] = useState('def')
     const [postList, setPostList] = useState<any>(undefined)
 
 
@@ -24,6 +40,21 @@ export default function Posts() {
         dispatch(fetchPosts())
     }, [posts, searchStr])
 
+    const sortPosts = async (sort: string) => {
+        if (sort === 'def') {
+            console.log('sorting def...');
+            setPostList([...await posts.sort(defSort)])
+        }
+        if (sort === 'asc') {
+            setPostList([...await posts.sort(ascSort)])
+        }
+        if (sort === 'dsc') {
+            setPostList([...await posts.sort(dscSort)])
+        }
+    }
+    useEffect(() => {
+        sortPosts(sort)
+    }, [sort])
 
     useEffect(() => {
         // if (searchStr === '') {
@@ -70,7 +101,7 @@ export default function Posts() {
             </Modal>
 
 
-            <h1 className='page-heading'>All Posts</h1>
+            <h1 className='page-heading'>{searchStr ? `Showing results for: ${searchStr}` : 'All Posts'}</h1>
 
             <div className='filter-grid-container'>
                 <div className='grid-item'>
@@ -86,12 +117,24 @@ export default function Posts() {
                 <div className='grid-item'>
                     <p>Sort by Title</p>
 
-                    <select name="sort" id="">
+                    <select
+                        name="sort"
+                        id=""
+                        value={sort}
+                        onChange={e => setSort(e.target.value)}
+                    >
+                        <option value="def">Default</option>
                         <option value="asc">Ascending</option>
                         <option value="dsc">Descending</option>
                     </select>
                 </div>
             </div>
+
+            {searchStr && postList.length === 0 && (
+                <div className='no-result'>
+                    No result found!
+                </div>
+            )}
 
             {postList?.map((post: any) => (
                 <PostCard

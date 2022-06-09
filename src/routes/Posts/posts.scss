@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 4px solid map-get($colors, primary);    
+    border: 4px solid map-get($colors, primary);
     color: white;
 
     &:hover {
@@ -53,4 +53,12 @@
             }
         }
     }
+}
+
+.no-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background-color: pink;
+    margin-top: 50px;
 }
