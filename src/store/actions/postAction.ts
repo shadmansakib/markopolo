@@ -5,8 +5,6 @@ import { ADD_POST, SET_POSTS } from "./actionTypes";
 export const fetchPosts = () => (dispatch: any) => {
     api.get('/posts')
         .then((resp: any) => {
-            console.log({resp});
-            
             if (resp.status !== 200) {
                 console.error('HTTP status error: ', resp.status)
                 return
